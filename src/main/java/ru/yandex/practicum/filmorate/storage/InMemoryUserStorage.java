@@ -5,10 +5,8 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.UserNotFound;
 import ru.yandex.practicum.filmorate.model.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static ru.yandex.practicum.filmorate.service.Validator.checkUser;
 
@@ -51,6 +49,37 @@ public class InMemoryUserStorage implements UserStorage {
             throw new UserNotFound();
         }
         return user;
+    }
+
+    @Override
+    public void addFriend(Integer id, Integer friendId) {
+        User user = getUser(id);
+        user.addFriend(friendId);
+        User friend = getUser(friendId);
+        friend.addFriend(id);
+    }
+
+    @Override
+    public void removeFriend(Integer id, Integer friendId) {
+        User user = getUser(id);
+        User friend = getUser(friendId); //проверим наличие друга по id
+        user.removeFriend(friendId);
+        friend.removeFriend(id);
+    }
+
+    @Override
+    public List<User> getUserFriends(Integer id) {
+        return getUser(id).getFriends().stream().map((s) -> getUser(s)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getCommonFriends(Integer id, Integer otherId) {
+        Set<Integer> userFriends = getUser(id).getFriends();
+        Set<Integer> friendFriends = getUser(otherId).getFriends();
+
+        return userFriends.stream()
+                .filter(friendFriends::contains)
+                .map((p) ->getUser(p)).collect(Collectors.toList());
     }
 
 }

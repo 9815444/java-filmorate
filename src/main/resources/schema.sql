@@ -1,3 +1,12 @@
+DROP TABLE IF EXISTS films  CASCADE;
+DROP TABLE IF EXISTS films_genres  CASCADE;
+DROP TABLE IF EXISTS friendships  CASCADE;
+DROP TABLE IF EXISTS likes  CASCADE;
+DROP TABLE IF EXISTS MPA CASCADE;
+DROP TABLE IF EXISTS users  CASCADE;
+DROP TABLE IF EXISTS genres  CASCADE;
+
+
 CREATE TABLE IF NOT EXISTS users
 (
     user_id  BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -13,7 +22,7 @@ CREATE TABLE IF NOT EXISTS  friendships
 (
     user_id   bigint,
     friend_id bigint,
-    confirmed boolean,
+--     confirmed boolean,
     PRIMARY KEY (user_id, friend_id)
 );
 
@@ -24,20 +33,22 @@ CREATE TABLE IF NOT EXISTS  films
     description  varchar,
     release_date date,
     duration_min int,
-    rating_id    int,
-    likes        bigint
+    rate float,
+--     rating_id    int,
+    mpa_id int
+--     likes        bigint
 );
 
-CREATE TABLE IF NOT EXISTS  films_ganres
+CREATE TABLE IF NOT EXISTS  films_genres
 (
     film_id  bigint,
     genre_id int
 );
 
-CREATE TABLE IF NOT EXISTS  ratings
+CREATE TABLE IF NOT EXISTS  MPA
 (
-    rating_id   int PRIMARY KEY auto_increment,
-    rating_name varchar(100)
+    mpa_id   int PRIMARY KEY auto_increment,
+    mpa_name varchar(100)
 );
 
 CREATE TABLE IF NOT EXISTS genres
@@ -65,10 +76,10 @@ ALTER TABLE likes
 ALTER TABLE likes
     ADD FOREIGN KEY (film_id) REFERENCES films (film_id);
 
-ALTER TABLE films_ganres
+ALTER TABLE films_genres
     ADD FOREIGN KEY (film_id) REFERENCES films (film_id);
 
-ALTER TABLE films_ganres
+ALTER TABLE films_genres
     ADD FOREIGN KEY (genre_id) REFERENCES genres (genre_id);
 
 /*ALTER TABLE ratings
@@ -78,4 +89,8 @@ ALTER TABLE films_ganres
 
 
 ALTER TABLE films
-    ADD FOREIGN KEY (rating_id) REFERENCES ratings (rating_id);
+    ADD FOREIGN KEY (mpa_id) REFERENCES MPA (mpa_id)
+
+
+    -----------
+

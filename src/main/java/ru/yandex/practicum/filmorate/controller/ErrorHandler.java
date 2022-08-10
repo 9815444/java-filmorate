@@ -25,6 +25,18 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleGenreNotFound(final GenreNotFound e) {
+        return Map.of("error", "Жанр не найден по id.");
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handMpaNotFound(final MpaNotFound e) {
+        return Map.of("error", "Mpa не найден по id.");
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> handleFriendNotFound(final FriendNotFound e) {
         return Map.of("error", "У пользователя нет такого друга.");
     }
@@ -44,6 +56,12 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleUserValidationException(final UserValidationException e) {
+        return Map.of("error", e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleUserValidationException(final FilmValidationException e) {
         return Map.of("error", e.getMessage());
     }
 

@@ -4,11 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.FilmNotFound;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static ru.yandex.practicum.filmorate.service.Validator.checkFilm;
 
@@ -51,5 +53,30 @@ public class InMemoryFilmStorage implements FilmStorage {
             throw new FilmNotFound();
         }
         return film;
+    }
+
+    @Override
+    public void addLike(Integer id, Integer userId) {
+        Film film = getFilm(id);
+        film.addLike(userId);
+    }
+
+    @Override
+    public void removeLike(Integer id, Integer userId) {
+        getFilm(id).removeLike(userId);
+    }
+
+    @Override
+    public List<Film> findPopularFilms(Integer count) {
+        return
+                getAll().stream()
+                        .sorted((o1, o2) -> (o2.getLikes().size() - o1.getLikes().size()))
+                        .limit(count)
+                        .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Genre> getFilmGenres(Integer id) {
+        return null;
     }
 }

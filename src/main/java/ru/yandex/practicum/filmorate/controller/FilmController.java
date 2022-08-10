@@ -48,24 +48,20 @@ public class FilmController {
     }
 
     @PutMapping("/films/{id}/like/{userId}")
-    public Film addLike(@PathVariable Map<String, String> pathVarsMap) {
+    public void addLike(@PathVariable Map<String, String> pathVarsMap) {
         String id = pathVarsMap.get("id");
         String userId = pathVarsMap.get("userId");
         if ((id != null) && (userId != null)) {
-            return filmService.addLike(Integer.valueOf(id), Integer.valueOf(userId));
-        } else {
-            return null;
+            filmService.addLike(Integer.valueOf(id), Integer.valueOf(userId));
         }
     }
 
     @DeleteMapping("/films/{id}/like/{userId}")
-    public Film removeLike(@PathVariable Map<String, String> pathVarsMap) {
+    public void removeLike(@PathVariable Map<String, String> pathVarsMap) {
         String id = pathVarsMap.get("id");
         String userId = pathVarsMap.get("userId");
         if ((id != null) && (userId != null)) {
-            return filmService.removeLike(Integer.valueOf(id), Integer.valueOf(userId));
-        } else {
-            return null;
+            filmService.removeLike(Integer.valueOf(id), Integer.valueOf(userId));
         }
     }
 
