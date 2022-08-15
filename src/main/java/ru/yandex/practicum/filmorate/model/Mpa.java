@@ -7,12 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Genre {
+public class Mpa {
     private int id;
     private String name;
-
-    public Genre(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }

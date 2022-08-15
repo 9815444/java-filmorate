@@ -23,7 +23,7 @@ public class Validator {
 
     private static void checkUserLogin(String login) {
         if (!(StringUtils.hasLength(login))
-                || StringUtils.containsWhitespace(login)) {
+            || StringUtils.containsWhitespace(login)) {
             throw new UserValidationException("Login is not correct");
         }
     }
@@ -51,7 +51,7 @@ public class Validator {
     private static void checkFilmReleaseDate(Film film) {
         LocalDate releaseDate = film.getReleaseDate();
         if (releaseDate == null
-                || releaseDate.isBefore(LocalDate.of(1895, 12, 28))) {
+            || releaseDate.isBefore(LocalDate.of(1895, 12, 28))) {
             throw new FilmValidationException("Release date is not correct");
         }
     }
@@ -59,6 +59,12 @@ public class Validator {
     private static void checkFilmDuration(Film film) {
         if (film.getDuration() < 0) {
             throw new FilmValidationException("Duration of the film cannot be negative");
+        }
+    }
+
+    private static void checkFilmMpa(Film film) {
+        if (film.getMpa() == null) {
+            throw new FilmValidationException("Mpa is null");
         }
     }
 
@@ -80,6 +86,7 @@ public class Validator {
         checkFilmDescription(film);
         checkFilmReleaseDate(film);
         checkFilmDuration(film);
+        checkFilmMpa(film);
     }
 
 }
