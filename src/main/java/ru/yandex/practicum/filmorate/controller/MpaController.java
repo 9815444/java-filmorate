@@ -12,7 +12,7 @@ import ru.yandex.practicum.filmorate.storage.MpaStorage;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/mpa")
 @Slf4j
 public class MpaController {
 
@@ -23,12 +23,12 @@ public class MpaController {
         this.mpaStorage = mpaStorage;
     }
 
-    @GetMapping(value = "/mpa")
+    @GetMapping()
     public List<Mpa> getAll() {
         return mpaStorage.getAll();
     }
 
-    @GetMapping(value = "/mpa/{id}")
+    @GetMapping(value = "/{id}")
     public Mpa getMpa(@PathVariable String id) {
         return mpaStorage.getMpa(Integer.valueOf(id));
     }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/films")
 @Slf4j
 public class FilmController {
 
@@ -27,45 +27,45 @@ public class FilmController {
         this.filmService = filmService;
     }
 
-    @PostMapping(value = "/films")
+    @PostMapping()
     public Film create(@RequestBody Film film) {
         return filmStorage.create(film);
     }
 
-    @PutMapping(value = "/films")
+    @PutMapping()
     public Film update(@RequestBody Film film) {
         return filmStorage.update(film);
     }
 
-    @GetMapping(value = "/films")
+    @GetMapping()
     public List<Film> getAll() {
         return filmStorage.getAll();
     }
 
-    @GetMapping("/films/{id}")
+    @GetMapping("/{id}")
     public Film getFilm(@PathVariable String id) {
         return filmStorage.getFilm(Integer.valueOf(id));
     }
 
-    @PutMapping("/films/{id}/like/{userId}")
-    public void addLike(@PathVariable Map<String, String> pathVarsMap) {
-        String id = pathVarsMap.get("id");
-        String userId = pathVarsMap.get("userId");
+    @PutMapping("/{id}/like/{userId}")
+    public void addLike(@PathVariable String id, @PathVariable String userId) {
+//        String id = pathVarsMap.get("id");
+//        String userId = pathVarsMap.get("userId");
         if ((id != null) && (userId != null)) {
             filmService.addLike(Integer.valueOf(id), Integer.valueOf(userId));
         }
     }
 
-    @DeleteMapping("/films/{id}/like/{userId}")
-    public void removeLike(@PathVariable Map<String, String> pathVarsMap) {
-        String id = pathVarsMap.get("id");
-        String userId = pathVarsMap.get("userId");
+    @DeleteMapping("/{id}/like/{userId}")
+    public void removeLike(@PathVariable String id, @PathVariable String userId) {
+//        String id = pathVarsMap.get("id");
+//        String userId = pathVarsMap.get("userId");
         if ((id != null) && (userId != null)) {
             filmService.removeLike(Integer.valueOf(id), Integer.valueOf(userId));
         }
     }
 
-    @GetMapping("/films/popular")
+    @GetMapping("/popular")
     public List<Film> findPopularFilms(@RequestParam(defaultValue = "10") String count) {
         return filmService.findPopularFilms(Integer.valueOf(count));
     }

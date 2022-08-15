@@ -8,20 +8,20 @@ import java.util.List;
 
 public interface UserStorage {
 
-    public User create(User user);
+    User create(User user);
 
-    public User update(User user);
+    User update(User user);
 
-    public List<User> getAll();
+    List<User> getAll();
 
-    public User getUser(Integer id);
+    User getUser(Integer id);
 
-    public void addFriend(Integer id, Integer friendId);
+    void addFriend(Integer id, Integer friendId);
 
-    public void removeFriend(Integer id, Integer friendId);
+    void removeFriend(Integer id, Integer friendId);
 
-    public List<User> getUserFriends(Integer id);
+    List<User> getUserFriends(Integer id);
 
-    public List<User> getCommonFriends(Integer id, Integer otherId);
+    List<User> getCommonFriends(Integer id, Integer otherId);
 
 }

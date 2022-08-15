@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface MpaStorage {
 
-    public List<Mpa> getAll();
+    List<Mpa> getAll();
 
-    public Mpa getMpa(Integer id);
+    Mpa getMpa(Integer id);
 
 }

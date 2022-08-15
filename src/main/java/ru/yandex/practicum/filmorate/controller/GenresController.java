@@ -12,7 +12,7 @@ import ru.yandex.practicum.filmorate.storage.GenreStorage;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/genres")
 @Slf4j
 public class GenresController {
 
@@ -23,12 +23,12 @@ public class GenresController {
         this.genreStorage = genreStorage;
     }
 
-    @GetMapping(value = "/genres")
+    @GetMapping()
     public List<Genre> getAll() {
         return genreStorage.getAll();
     }
 
-    @GetMapping(value = "/genres/{id}")
+    @GetMapping(value = "/{id}")
     public Genre getGenre(@PathVariable String id) {
         return genreStorage.getGenre(Integer.valueOf(id));
     }

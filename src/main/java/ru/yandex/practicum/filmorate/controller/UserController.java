@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/users")
 @Slf4j
 public class UserController {
 
@@ -27,27 +27,27 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/users")
+    @PostMapping()
     public User create(@RequestBody User user) {
         return userStorage.create(user);
     }
 
-    @PutMapping(value = "/users")
+    @PutMapping()
     public User update(@RequestBody User user) {
         return userStorage.update(user);
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping()
     public List<User> getAll() {
         return userStorage.getAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public User getUser(@PathVariable String id) {
         return userStorage.getUser(Integer.valueOf(id));
     }
 
-    @PutMapping("/users/{id}/friends/{friendId}")
+    @PutMapping("/{id}/friends/{friendId}")
     public User addFriend(@PathVariable Map<String, String> pathVarsMap) {
         String id = pathVarsMap.get("id");
         String friendId = pathVarsMap.get("friendId");
@@ -58,7 +58,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/users/{id}/friends/{friendId}")
+    @DeleteMapping("/{id}/friends/{friendId}")
     public User removeFriend(@PathVariable Map<String, String> pathVarsMap) {
         String id = pathVarsMap.get("id");
         String friendId = pathVarsMap.get("friendId");
@@ -69,12 +69,12 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/{id}/friends")
+    @GetMapping("/{id}/friends")
     public List<User> getUserFriends(@PathVariable String id) {
         return userService.getUserFriends(Integer.valueOf(id));
     }
 
-    @GetMapping("/users/{id}/friends/common/{otherId}")
+    @GetMapping("/{id}/friends/common/{otherId}")
     public List<User> getCommonFriends(@PathVariable Map<String, String> pathVarsMap) {
         String id = pathVarsMap.get("id");
         String otherId = pathVarsMap.get("otherId");
